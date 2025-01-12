@@ -1,0 +1,6 @@
+{
+    "name": "Fruits and vegetables",
+    "dockerComposeFile": "../docker/docker-compose.yaml",
+    "workspaceFolder": "/app",
+    "service": "symfony"
+}

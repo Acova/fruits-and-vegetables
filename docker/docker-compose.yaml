@@ -1,0 +1,8 @@
+name: fruits-and-vegetables
+services:
+  symfony:
+    image: php:8.1-fpm-alpine3.15
+    container_name: symfony
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
