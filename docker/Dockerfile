@@ -8,6 +8,9 @@ COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr
 RUN install-php-extensions zip bcmath @composer; \
     rm /usr/local/bin/install-php-extensions;
 
+RUN apk add --no-cache postgresql-dev && \
+    docker-php-ext-install pdo pdo_pgsql
+
 COPY . /app
 
 WORKDIR /app
