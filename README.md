@@ -28,6 +28,7 @@ or
 
 ## Timebox
 * First hour: Configured devcontainer, added a PostgreSQL container to the compose and updated Symfony
+* Second hour: Configured Symfony to support the PostgreSQL database. Created the skeleton for a hexagonal architecture
 
 ## When you are finished
 * Please upload your code to a public git repository (i.e. GitHub, Gitlab)
