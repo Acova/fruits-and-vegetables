@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain;
+namespace App\Infrastructure;
 
 use App\Domain\Fruits\Fruit;
 use App\Domain\Fruits\FruitsRepository;
@@ -8,11 +8,12 @@ use App\Domain\Vegetables\Vegetable;
 use App\Domain\Vegetables\VegetablesRepository;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 #[AsCommand(name: 'app:load-data-from-file')]
-class LoadDataFromFile extends Command
+class LoadDataFromFileCommand extends Command
 {
     public function __construct(
         private FruitsRepository $fruitsRepository,
@@ -25,16 +26,18 @@ class LoadDataFromFile extends Command
     {
         $this
             ->setDescription('Searches for the request.json file and loads it\'s contents')
-            ->setHelp('The file will be deleted after being load');
+            ->setHelp('The file will be deleted after being load')
+            ->addArgument('file-path', InputArgument::REQUIRED, 'File path');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        if (!file_exists('/app/request.json')) {
+        $filePath = $input->getArgument('file-path');
+        if (!file_exists($filePath)) {
             return Command::SUCCESS;
         }
 
-        $contents = file_get_contents('/app/request.json');
+        $contents = file_get_contents($filePath);
         if (!$contents) {
             return Command::FAILURE;
         }
@@ -44,11 +47,11 @@ class LoadDataFromFile extends Command
 
         foreach($data as $item){
             if (
-                is_null($item['id'])
-                || is_null($item['name'])
-                || is_null($item['type'])
-                || is_null($item['quantity'])
-                || is_null($item['unit'])
+                !isset($item['id'])
+                || !isset($item['name'])
+                || !isset($item['type'])
+                || !isset($item['quantity'])
+                || !isset($item['unit'])
             ) {
                 $item['error'] = 'This item doesn\'t include all the required fields';
                 $failedElements[] = $item;
@@ -97,7 +100,7 @@ class LoadDataFromFile extends Command
             }
         }
 
-        unlink('/app/request.json');
+        unlink($filePath);
         file_put_contents('/app/request_errors.json', json_encode($failedElements));
         return Command::SUCCESS;
     }
