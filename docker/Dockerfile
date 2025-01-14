@@ -19,4 +19,4 @@ COPY . /app
 
 WORKDIR /app
 
-RUN composer-install
+RUN composer install --no-progress
