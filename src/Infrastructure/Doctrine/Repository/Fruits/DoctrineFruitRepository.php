@@ -22,28 +22,41 @@ class DoctrineFruitRepository extends ServiceEntityRepository implements FruitRe
         $newFruit->setName($fruit->getName());
         $newFruit->setQuantity($fruit->getQuantity());
 
-        $entityManager = $this->getEntityManager();
-        $entityManager->persist($newFruit);
-        $entityManager->flush();
+        $this->persist($newFruit);
     }
 
     public function remove(Fruit $fruit): void
     {
-        return;
+        $doctrineFruit = $this->search($fruit->getId());
+
+        $entityManager = $this->getEntityManager();
+        $entityManager->remove($doctrineFruit);
+        $entityManager->flush();
     }
 
     public function update(Fruit $fruit): void
     {
-        return;
+        $doctrineFruit = $this->search($fruit->getId());
+        $doctrineFruit->setName($fruit->getName());
+        $doctrineFruit->setQuantity($fruit->getQuantity());
+
+        $this->persist($doctrineFruit);
     }
 
     public function list(): array
     {
-        return [];
+        return $this->findAll();
     }
 
-    public function search(): ?Fruit
+    public function search(int $id): ?Fruit
     {
-        return new Fruit();
+        return $this->find($id);
+    }
+
+    private function persist(DoctrineFruit $fruit): void
+    {
+        $entityManager = $this->getEntityManager();
+        $entityManager->persist($fruit);
+        $entityManager->flush();
     }
 }

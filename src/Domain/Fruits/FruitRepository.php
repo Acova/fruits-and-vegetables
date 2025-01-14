@@ -8,5 +8,5 @@ interface FruitRepository
     public function remove(Fruit $fruit): void;
     public function update(Fruit $fruit): void;
     public function list(): array;
-    public function search(): ?Fruit;
+    public function search(int $id): ?Fruit;
 }
