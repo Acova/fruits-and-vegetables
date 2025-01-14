@@ -3,5 +3,29 @@
     "dockerComposeFile": "../docker/docker-compose.yaml",
     "workspaceFolder": "/app",
     "service": "symfony",
-    "postStartCommand": "symfony server:start -d"
+    "postStartCommand": "symfony server:start -d",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "xdebug.php-debug",
+                "bmewburn.vscode-intelephense-client"
+            ],
+            "settings": {
+                "php.suggest.basic": true,
+                "launch": {
+                    "configurations": [
+                        {
+                            "name": "Listen for XDebug",
+                            "type": "php",
+                            "request": "launch",
+                            "port": 9003,
+                            "xdebugSettings": {
+                                "max_data": -1
+                            }
+                        }
+                    ]
+                }
+            }
+        }
+    }
 }

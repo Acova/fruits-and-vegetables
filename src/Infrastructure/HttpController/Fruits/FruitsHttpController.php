@@ -20,6 +20,6 @@ class FruitsHttpController extends AbstractController
         FruitRepository $fruitRepository,
         Request $request
     ): Response {
-        return new Response();
+        return $this->json($fruitRepository->list());
     }
 }
