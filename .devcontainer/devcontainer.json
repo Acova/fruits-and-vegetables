@@ -2,5 +2,6 @@
     "name": "Fruits and vegetables",
     "dockerComposeFile": "../docker/docker-compose.yaml",
     "workspaceFolder": "/app",
-    "service": "symfony"
+    "service": "symfony",
+    "postStartCommand": "symfony server:start -d"
 }
