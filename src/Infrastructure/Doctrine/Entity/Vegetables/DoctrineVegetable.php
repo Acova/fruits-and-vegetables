@@ -7,7 +7,7 @@ USE Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity()]
 #[ORM\Table(name: "vegetable")]
-class DoctrineVegetable implements Vegetable
+class DoctrineVegetable
 {
     #[ORM\Id]
     #[ORM\Column]
@@ -24,7 +24,7 @@ class DoctrineVegetable implements Vegetable
         return $this->id;
     }
 
-    public function setId(int $id): Vegetable
+    public function setId(int $id): self
     {
         $this->id = $id;
 
@@ -37,7 +37,7 @@ class DoctrineVegetable implements Vegetable
     }
 
 
-    public function setName(string $name): Vegetable
+    public function setName(string $name): self
     {
         $this->name = $name;
 
@@ -50,10 +50,26 @@ class DoctrineVegetable implements Vegetable
     }
 
 
-    public function setQuantity(int $quantity): Vegetable
+    public function setQuantity(int $quantity): self
     {
         $this->quantity = $quantity;
 
         return $this;
+    }
+
+    public static function fromModelVegetable(Vegetable $fruit): DoctrineVegetable
+    {
+        return (new DoctrineVegetable())
+            ->setId($fruit->getId())
+            ->setName($fruit->getName())
+            ->setQuantity($fruit->getQuantity());
+    }
+
+    public function toModelVegetable(): Vegetable
+    {
+        return (new Vegetable)
+            ->setId($this->getId())
+            ->setName($this->getName())
+            ->setQuantity($this->getQuantity());
     }
 }

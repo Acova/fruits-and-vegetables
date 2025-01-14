@@ -2,12 +2,47 @@
 
 namespace App\Domain\Vegetables;
 
-interface Vegetable
+class Vegetable
 {
-    public function getId(): ?int;
-    public function setId(int $id): Vegetable;
-    public function getName(): ?string;
-    public function setName(string $name): Vegetable;
-    public function getQuantity(): ?int;
-    public function setQuantity(int $quantity): Vegetable;
+    private ?int $id = null;
+    private ?string $name = null;
+    private ?int $quantity = null;
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function setId(int $id): Vegetable
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+
+    public function setName(string $name): Vegetable
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getQuantity(): ?int
+    {
+        return $this->quantity;
+    }
+
+
+    public function setQuantity(int $quantity): Vegetable
+    {
+        $this->quantity = $quantity;
+
+        return $this;
+    }
 }

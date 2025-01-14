@@ -2,7 +2,7 @@
 
 namespace App\Domain\Fruits;
 
-interface FruitRepository
+interface FruitsRepository
 {
     public function add(Fruit $fruit): void;
     public function remove(Fruit $fruit): void;

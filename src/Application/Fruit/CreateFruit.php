@@ -3,12 +3,12 @@
 namespace App\Application\Fruit;
 
 use App\Domain\Fruits\Fruit;
-use App\Domain\Fruits\FruitRepository;
+use App\Domain\Fruits\FruitsRepository;
 
 class CreateFruit
 {
     public function __construct(
-        private FruitRepository $fruitRepository
+        private FruitsRepository $fruitRepository
     ){ 
     }
 

@@ -3,12 +3,12 @@
 namespace App\Infrastructure\Doctrine\Repository\Fruits;
 
 use App\Domain\Fruits\Fruit;
-use App\Domain\Fruits\FruitRepository;
+use App\Domain\Fruits\FruitsRepository;
 use App\Infrastructure\Doctrine\Entity\Fruits\DoctrineFruit;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-class DoctrineFruitRepository extends ServiceEntityRepository implements FruitRepository
+class DoctrineFruitsRepository extends ServiceEntityRepository implements FruitsRepository
 {
     public function __construct(ManagerRegistry $registry)
     {

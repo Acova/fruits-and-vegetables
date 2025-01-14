@@ -1,54 +1,54 @@
 <?php
 
-namespace App\Infrastructure\Api\Fruits;
+namespace App\Infrastructure\Api\Vegetables;
 
-use App\Application\Fruit\CreateFruit;
-use App\Application\Fruit\FruitDTO;
-use App\Application\Fruit\ListFruits;
-use App\Application\Fruit\RemoveFruit;
-use App\Application\Fruit\ShowFruit;
+use App\Application\Vegetable\CreateVegetable;
+use App\Application\Vegetable\ListVegetables;
+use App\Application\Vegetable\RemoveVegetable;
+use App\Application\Vegetable\ShowVegetable;
+use App\Application\Vegetable\VegetableDTO;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route(path: '/fruit')]
-class FruitsController extends AbstractController
+#[Route(path: '/vegetable')]
+class VegetablesController extends AbstractController
 {
     #[Route(
         path: '',
-        name: 'index_fruit',
+        name: 'index_vegetable',
         methods: [Request::METHOD_GET]
     )]
     public function list(
-        ListFruits $listFruits
+        ListVegetables $listVegetables
     ): Response {
-        return $this->json($listFruits->__invoke());
+        return $this->json($listVegetables->__invoke());
     }
 
     #[Route(
         path: '/{id}',
-        name: 'show_fruit',
+        name: 'show_vegetable',
         methods: [Request::METHOD_GET]
     )]
     public function show(
-        ShowFruit $showFruit,
+        ShowVegetable $showVegetable,
         int $id
     ): Response {
-        return $this->json($showFruit->__invoke($id));
+        return $this->json($showVegetable->__invoke($id));
     }
 
     #[Route(
         path: '',
-        name: 'create_fruit',
+        name: 'create_vegetable',
         methods: [Request::METHOD_POST]
     )]
     public function create(
-        CreateFruit $createFruit,
+        CreateVegetable $createVegetable,
         Request $request
     ): Response {
         $jsonData = json_decode($request->getContent(), true);
-        $createFruit->__invoke(new FruitDTO(
+        $createVegetable->__invoke(new VegetableDTO(
             $jsonData['id'],
             $jsonData['name'],
             $jsonData['quantity']
@@ -59,15 +59,15 @@ class FruitsController extends AbstractController
 
     #[Route(
         path: '/{id}',
-        name: 'remove_fruit',
+        name: 'remove_vegetable',
         methods: [Request::METHOD_DELETE]
     )]
     public function remove(
-        RemoveFruit $removeFruit,
+        RemoveVegetable $removeVegetable,
         int $id
     ): Response {
-        $removeFruit->__invoke($id);
+        $removeVegetable->__invoke($id);
         
         return new Response('', Response::HTTP_NO_CONTENT);
-    }
+    }    
 }
