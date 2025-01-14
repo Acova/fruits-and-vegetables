@@ -17,17 +17,12 @@ class DoctrineFruitRepository extends ServiceEntityRepository implements FruitRe
 
     public function add(Fruit $fruit): void
     {
-        $newFruit = new DoctrineFruit();
-        $newFruit->setId($fruit->getId());
-        $newFruit->setName($fruit->getName());
-        $newFruit->setQuantity($fruit->getQuantity());
-
-        $this->persist($newFruit);
+        $this->persist(DoctrineFruit::fromModelFruit($fruit));
     }
 
     public function remove(Fruit $fruit): void
     {
-        $doctrineFruit = $this->search($fruit->getId());
+        $doctrineFruit = $this->find($fruit->getId());
 
         $entityManager = $this->getEntityManager();
         $entityManager->remove($doctrineFruit);
@@ -36,7 +31,7 @@ class DoctrineFruitRepository extends ServiceEntityRepository implements FruitRe
 
     public function update(Fruit $fruit): void
     {
-        $doctrineFruit = $this->search($fruit->getId());
+        $doctrineFruit = $this->find($fruit->getId());
         $doctrineFruit->setName($fruit->getName());
         $doctrineFruit->setQuantity($fruit->getQuantity());
 
@@ -50,7 +45,10 @@ class DoctrineFruitRepository extends ServiceEntityRepository implements FruitRe
 
     public function search(int $id): ?Fruit
     {
-        return $this->find($id);
+        /** @var DoctrineFruit */
+        $doctrineFruit = $this->find($id);
+
+        return $doctrineFruit->toModelFruit();
     }
 
     private function persist(DoctrineFruit $fruit): void

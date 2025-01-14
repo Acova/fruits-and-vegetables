@@ -2,12 +2,47 @@
 
 namespace App\Domain\Fruits;
 
-interface Fruit
+class Fruit
 {
-    public function getId(): ?int;
-    public function setId(int $id): Fruit;
-    public function getName(): ?string;
-    public function setName(string $name): Fruit;
-    public function getQuantity(): ?int;
-    public function setQuantity(int $quantity): Fruit;
+    private ?int $id = null;
+    private ?string $name = null;
+    private ?int $quantity = null;
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function setId(int $id): Fruit
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+
+    public function setName(string $name): Fruit
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getQuantity(): ?int
+    {
+        return $this->quantity;
+    }
+
+
+    public function setQuantity(int $quantity): Fruit
+    {
+        $this->quantity = $quantity;
+
+        return $this;
+    }
 }

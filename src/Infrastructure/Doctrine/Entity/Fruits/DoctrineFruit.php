@@ -8,7 +8,7 @@ USE Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: DoctrineFruitRepository::class)]
 #[ORM\Table(name: "fruit")]
-class DoctrineFruit implements Fruit
+class DoctrineFruit
 {
     #[ORM\Id]
     #[ORM\Column]
@@ -25,7 +25,7 @@ class DoctrineFruit implements Fruit
         return $this->id;
     }
 
-    public function setId(int $id): Fruit
+    public function setId(int $id): self
     {
         $this->id = $id;
 
@@ -38,7 +38,7 @@ class DoctrineFruit implements Fruit
     }
 
 
-    public function setName(string $name): Fruit
+    public function setName(string $name): self
     {
         $this->name = $name;
 
@@ -51,10 +51,26 @@ class DoctrineFruit implements Fruit
     }
 
 
-    public function setQuantity(int $quantity): Fruit
+    public function setQuantity(int $quantity): self
     {
         $this->quantity = $quantity;
 
         return $this;
+    }
+
+    public static function fromModelFruit(Fruit $fruit): DoctrineFruit
+    {
+        return (new DoctrineFruit())
+            ->setId($fruit->getId())
+            ->setName($fruit->getName())
+            ->setQuantity($fruit->getQuantity());
+    }
+
+    public function toModelFruit(): Fruit
+    {
+        return (new Fruit)
+            ->setId($this->getId())
+            ->setName($this->getName())
+            ->setQuantity($this->getQuantity());
     }
 }
