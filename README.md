@@ -81,6 +81,14 @@ For testing, we can use the symfony server. From the project's root, we can run 
 ```bash
 symfony server:start
 ```
+If you are running the app from inside a container, run this command like this, from a shell in the container:
+```bash
+symfony server:start --allow-all-ip
+```
+Or, like this from outside the container
+```bash
+docker exec -it fruits-and-vegetables-symfony /usr/bin/symfony server:start --allow-all-ip -d
+```
 
 This project has two main endpoints: `/fruit` and `/vegetable`.
 
