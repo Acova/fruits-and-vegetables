@@ -2,6 +2,7 @@
 
 namespace App\Application\Fruit;
 
+use App\Domain\Fruits\Fruit;
 use App\Domain\Fruits\FruitsRepository;
 
 class ListFruits
@@ -11,8 +12,16 @@ class ListFruits
     ){ 
     }
 
-    public function __invoke()
+    public function __invoke(array $filter = [])
     {
-        return $this->fruitRepository->list();
+        $list = $this->fruitRepository->list($filter);
+        if (isset($filter['unit']) && 'kg' === $filter['unit']) {
+            /** @var Fruit */
+            foreach($list as $fruit) {
+                $fruit->setQuantity($fruit->getQuantity() / 1000);
+            }
+        }
+
+        return $list;
     }
 }

@@ -21,9 +21,14 @@ class VegetablesController extends AbstractController
         methods: [Request::METHOD_GET]
     )]
     public function list(
-        ListVegetables $listVegetables
+        ListVegetables $listVegetables,
+        Request $request
     ): Response {
-        return $this->json($listVegetables->__invoke());
+        $filter = [];
+        if (null !== $request->get('unit')){
+            $filter['unit'] = $request->get('unit');
+        }
+        return $this->json($listVegetables->__invoke($filter));
     }
 
     #[Route(
@@ -33,9 +38,14 @@ class VegetablesController extends AbstractController
     )]
     public function show(
         ShowVegetable $showVegetable,
+        Request $request,
         int $id
     ): Response {
-        return $this->json($showVegetable->__invoke($id));
+        $options = [];
+        if (null !== $request->get('unit')) {
+            $options['unit'] = $request->get('unit');
+        }
+        return $this->json($showVegetable->__invoke($id, $options));
     }
 
     #[Route(

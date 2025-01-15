@@ -2,6 +2,7 @@
 
 namespace App\Application\Vegetable;
 
+use App\Domain\Vegetables\Vegetable;
 use App\Domain\Vegetables\VegetablesRepository;
 
 class ShowVegetable
@@ -11,8 +12,14 @@ class ShowVegetable
     ) {
     }
 
-    public function __invoke(int $id)
+    public function __invoke(int $id, array $options = [])
     {
-        return $this->vegetablesRepository->search($id);
+        /** @var Vegetable */
+        $vegetable = $this->vegetablesRepository->search($id);
+        if (isset($options['unit']) && 'kg' === $options['unit']) {
+            $vegetable->setQuantity($vegetable->getQuantity() / 1000);
+        }
+
+        return $vegetable;
     }
 }

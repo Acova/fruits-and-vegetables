@@ -3,9 +3,10 @@
 namespace App\Infrastructure\Doctrine\Entity\Vegetables;
 
 use App\Domain\Vegetables\Vegetable;
+use App\Infrastructure\Doctrine\Repository\Vegetables\DoctrineVegetablesRepository;
 USE Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity()]
+#[ORM\Entity(repositoryClass: DoctrineVegetablesRepository::class)]
 #[ORM\Table(name: "vegetable")]
 class DoctrineVegetable
 {

@@ -38,9 +38,12 @@ class DoctrineFruitsRepository extends ServiceEntityRepository implements Fruits
         $this->persist($doctrineFruit);
     }
 
-    public function list(): array
+    public function list(array $filter = []): array
     {
-        return $this->findAll();
+        return array_map(
+            fn(DoctrineFruit $doctrineFruit) => $doctrineFruit->toModelFruit(),
+            $this->findAll()
+        );
     }
 
     public function search(int $id): ?Fruit

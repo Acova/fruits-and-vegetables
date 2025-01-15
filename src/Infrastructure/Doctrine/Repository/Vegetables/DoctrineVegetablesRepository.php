@@ -38,9 +38,12 @@ class DoctrineVegetablesRepository extends ServiceEntityRepository implements Ve
         $this->persist($doctrineVegetable);
     }
 
-    public function list(): array
+    public function list(array $filter = []): array
     {
-        return $this->findAll();
+        return array_map(
+            fn(DoctrineVegetable $doctrineVegetable) => $doctrineVegetable->toModelVegetable(),
+            $this->findAll()
+        );
     }
 
     public function search(int $id): ?Vegetable

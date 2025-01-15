@@ -21,9 +21,15 @@ class FruitsController extends AbstractController
         methods: [Request::METHOD_GET]
     )]
     public function list(
-        ListFruits $listFruits
+        ListFruits $listFruits,
+        Request $request
     ): Response {
-        return $this->json($listFruits->__invoke());
+        $filter = [];
+        if (null !== $request->get('unit')) {
+            $filter['unit'] = $request->get('unit');
+        }
+
+        return $this->json($listFruits->__invoke($filter));
     }
 
     #[Route(
@@ -33,9 +39,14 @@ class FruitsController extends AbstractController
     )]
     public function show(
         ShowFruit $showFruit,
+        Request $request,
         int $id
     ): Response {
-        return $this->json($showFruit->__invoke($id));
+        $options = [];
+        if (null !== $request->get('unit')) {
+            $options['unit'] = $request->get('unit');
+        }
+        return $this->json($showFruit->__invoke($id, $options));
     }
 
     #[Route(

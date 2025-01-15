@@ -2,6 +2,7 @@
 
 namespace App\Application\Fruit;
 
+use App\Domain\Fruits\Fruit;
 use App\Domain\Fruits\FruitsRepository;
 
 class ShowFruit
@@ -11,8 +12,14 @@ class ShowFruit
     ){ 
     }
 
-    public function __invoke(int $id)
+    public function __invoke(int $id, array $options = [])
     {
-        return $this->fruitRepository->search($id);
+        /** @var Fruit */
+        $fruit = $this->fruitRepository->search($id);
+        if (isset($options['unit']) && 'kg' === $options['unit']) {
+            $fruit->setQuantity($fruit->getQuantity() / 1000);
+        }
+
+        return $fruit;
     }
 }

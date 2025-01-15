@@ -3,10 +3,10 @@
 namespace App\Infrastructure\Doctrine\Entity\Fruits;
 
 use App\Domain\Fruits\Fruit;
-use App\Infrastructure\Doctrine\Repository\Fruits\DoctrineFruitRepository;
+use App\Infrastructure\Doctrine\Repository\Fruits\DoctrineFruitsRepository;
 USE Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: DoctrineFruitRepository::class)]
+#[ORM\Entity(repositoryClass: DoctrineFruitsRepository::class)]
 #[ORM\Table(name: "fruit")]
 class DoctrineFruit
 {
