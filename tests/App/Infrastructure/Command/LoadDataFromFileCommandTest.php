@@ -6,7 +6,7 @@ use App\Domain\Fruits\Fruit;
 use App\Domain\Fruits\FruitsRepository;
 use App\Domain\Vegetables\Vegetable;
 use App\Domain\Vegetables\VegetablesRepository;
-use App\Infrastructure\LoadDataFromFileCommand;
+use App\Infrastructure\Command\LoadDataFromFileCommand;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Console\Tester\CommandTester;
@@ -102,7 +102,7 @@ class LoadDataFromFileCommandTest extends KernelTestCase
         $command = $application->find('app:load-data-from-file');
         $commandTester = new CommandTester($command);
         $commandTester->execute([
-            'file-path' => '/app/tests/App/Infrastructure/test.json'
+            'file-path' => '/app/tests/App/Infrastructure/Command/test.json'
         ]);
         $commandTester->assertCommandIsSuccessful();
 
