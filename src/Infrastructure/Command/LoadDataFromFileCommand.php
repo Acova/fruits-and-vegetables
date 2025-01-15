@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Infrastructure;
+namespace App\Infrastructure\Command;
 
 use App\Domain\Fruits\Fruit;
 use App\Domain\Fruits\FruitsRepository;
@@ -99,8 +99,7 @@ class LoadDataFromFileCommand extends Command
                 $this->fruitsRepository->add($newElement);
             }
         }
-
-        unlink($filePath);
+        
         file_put_contents('/app/request_errors.json', json_encode($failedElements));
         return Command::SUCCESS;
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\App\Application;
+namespace App\Tests\App\Infrastructure\Command;
 
 use App\Domain\Fruits\Fruit;
 use App\Domain\Fruits\FruitsRepository;
@@ -106,7 +106,6 @@ class LoadDataFromFileCommandTest extends KernelTestCase
         ]);
         $commandTester->assertCommandIsSuccessful();
 
-        $this->assertFalse(file_exists('/app/tests/App/Infrastructure/test.json'));
         $this->assertTrue(file_exists('/app/request_errors.json'));
     }
 }

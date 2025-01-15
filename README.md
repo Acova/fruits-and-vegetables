@@ -26,38 +26,76 @@ or
 * Timebox your work - we expect that you would spend between 3 and 4 hours.
 * Your code should be tested
 
-## Timebox
-* First hour: Configured devcontainer, added a PostgreSQL container to the compose and updated Symfony
-* Second hour: Configured Symfony to support the PostgreSQL database. Created the skeleton for a hexagonal architecture
+## Time description
+* First hour: Configured devcontainer, added a PostgreSQL container to the compose and updated Symfony.
+* Second hour: Configured Symfony to support the PostgreSQL database. Created the skeleton for a hexagonal architecture.
+* Third hour: Created the controllers and repositories for our entities.
+* Fourth hour: Added testing and improved the configuration
 
-## When you are finished
-* Please upload your code to a public git repository (i.e. GitHub, Gitlab)
-
-## 🐳 Docker image
-Optional. Just here if you want to run it isolated.
-
-### 📥 Pulling image
+## Docker (optional)
+If you want to use this inside a docker container, you need to use docker compose:
 ```bash
-docker pull tturkowski/fruits-and-vegetables
+docker compose -f docker/docker-compose.yaml up -d
 ```
 
-### 🧱 Building image
+## Install guide:
+To use this project, after cloning the source code, you need to execute theese command (from the root of the project)
+
+(Optional) If you are using Docker, launch a shell inside the container:
 ```bash
-docker build -t tturkowski/fruits-and-vegetables -f docker/Dockerfile .
+docker exec -it fruits-and-vegetables-symfony /bin/sh
 ```
 
-### 🏃‍♂️ Running container
+Install dependencies:
 ```bash
-docker run -it -w/app -v$(pwd):/app tturkowski/fruits-and-vegetables sh 
+composer install
 ```
 
-### 🛂 Running tests
+Create the database:
 ```bash
-docker run -it -w/app -v$(pwd):/app tturkowski/fruits-and-vegetables bin/phpunit
+php bin/console doctrine:database:create
 ```
 
-### ⌨️ Run development server
+Run the migrations:
 ```bash
-docker run -it -w/app -v$(pwd):/app -p8080:8080 tturkowski/fruits-and-vegetables php -S 0.0.0.0:8080 -t /app/public
-# Open http://127.0.0.1:8080 in your browser
+php bin/console doctrine:migrations:migrate
 ```
+
+## Run the tests
+From the root of the project, run the next command:
+```bash
+php bin/phpunit
+```
+
+## Load the data from de request.json file
+From the root of the project, run the next command:
+```bash
+php bin/console app:load-data-from-file /app/request.json
+```
+
+A file called request_errors.json will be created with a log of all the failed entries and the detected errors.
+
+## Calling the API
+We need a web server to be able to use the endpoints of the application.
+For testing, we can use the symfony server. From the project's root, we can run the next command:
+```bash
+symfony server:start
+```
+
+This project has two main endpoints: `/fruit` and `/vegetable`.
+
+Sending GET on any of theese two endpoints will return a list of fruits or vegetables respectively.
+
+Sending GET on `/fruit/{id}` or `/vegetable/{id}`, and changing the {id} by a fruit or vegetable id will return the details of a specific fruit or vegetable.
+
+Sending POST on `/fruit` or `/vegetable`, and including in the body a JSON like this:
+```json
+{
+  "id": 2,
+  "name": "Banana",
+  "quantity": 0
+}
+```
+will create a fruit or vegetable.
+
+Sending DELETE on `/fruit/{id}` or `/vegetable/{id}`, and changing the {id} by a fruit or vegetable id will delete said fruit or vegetable
