@@ -96,6 +96,8 @@ Sending GET on any of theese two endpoints will return a list of fruits or veget
 
 Sending GET on `/fruit/{id}` or `/vegetable/{id}`, and changing the {id} by a fruit or vegetable id will return the details of a specific fruit or vegetable.
 
+For both GET endpoints, you can specify the param `unit` with the value `kg` to get the quantity in Kilograms. The default value will be grams.
+
 Sending POST on `/fruit` or `/vegetable`, and including in the body a JSON like this:
 ```json
 {
