@@ -1,6 +1,6 @@
 <?php
 
-namespace Test\App\Application\Vegetable;
+namespace App\Tests\App\Application\Vegetable;
 
 use App\Application\Vegetable\CreateVegetable;
 use App\Application\Vegetable\VegetableDTO;

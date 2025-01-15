@@ -18,5 +18,3 @@ RUN apk add --no-cache bash; \
 COPY . /app
 
 WORKDIR /app
-
-RUN composer install --no-progress

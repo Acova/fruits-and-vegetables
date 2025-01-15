@@ -1,6 +1,6 @@
 <?php
 
-namespace Test\App\Application\Vegetable;
+namespace App\Tests\App\Application\Vegetable;
 
 use App\Application\Vegetable\ListVegetables;
 use App\Domain\Vegetables\VegetablesRepository;

@@ -1,6 +1,7 @@
 name: fruits-and-vegetables
 services:
   symfony:
+    container_name: fruits-and-vegetables-symfony
     build:
       context: ..
       dockerfile: docker/Dockerfile

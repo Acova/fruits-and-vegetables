@@ -1,6 +1,6 @@
 <?php
 
-namespace Test\App\Application;
+namespace App\Tests\App\Application;
 
 use App\Domain\Fruits\Fruit;
 use App\Domain\Fruits\FruitsRepository;
